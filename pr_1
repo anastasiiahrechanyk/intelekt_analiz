@@ -1,0 +1,75 @@
+import numpy as np
+
+def calculate_statistical_measures():
+
+    print("  Обчислення статистичних характеристик ")
+
+    
+    try:
+        # Введення кількості пар (x_i, n_i)
+        k = int(input("Скільки унікальних значень у вибірці (k)? Введіть число: "))
+        if k <= 0:
+            raise ValueError("Треба ввести хоча б одне значення")
+            
+        x_values = []  # Для значень вибірки
+        n_values = []  # Для частот
+        
+        print("\n Введення даних")
+        for i in range(k):
+            while True:
+                try:
+                    # введення значення та частоти
+                    x_i = float(input(f"Введіть значення x_{i+1}: "))
+                    n_i = int(input(f"Введіть частоту n_{i+1}: "))
+                    
+                    if n_i <= 0:
+                        raise ValueError("Частота має бути > 0.")
+                        
+                    x_values.append(x_i)
+                    n_values.append(n_i)
+                    break 
+                except ValueError as e:
+                    print(f"Помилка: {e}. Спробуйте ще раз.")
+        
+        # робим масиви NumPy
+        x = np.array(x_values)
+        n = np.array(n_values)
+        
+        # 1. Обчислюємо обсяг вибірки (загальна сума частот)
+  
+        
+        if total_frequency == 0:
+             print(" Помилка: Сума частот дорівнює нулю. ")
+             return
+        
+        # 2. Обчислюємо Середнє значення (X_сер)
+
+        numerator_mean = np.sum(x * n)
+        X_ser = numerator_mean / total_frequency
+        
+        # 3. Обчислюємо Дисперсію (D)
+
+        squared_deviations_times_n = (x - X_ser)**2 * n
+        numerator_variance = np.sum(squared_deviations_times_n)
+        D = numerator_variance / total_frequency
+        
+        # 4. Обчислюємо Середньоквадратичне відхилення (X_сер від)
+        X_ser_vid = np.sqrt(D)
+        
+        # результат
+  
+        print("РЕЗУЛЬТАТИ АНАЛІЗУ")
+        print(f"Обсяг вибірки (Загальна кількість даних): {total_frequency}")
+        print("-" * 55)
+        print(f"1. Середнє значення (X_сер):                {X_ser:.4f}")
+        print(f"2. Дисперсія (D):                           {D:.4f}")
+        print(f"3. Сер.квадратичне відхилення (X_сер від):  {X_ser_vid:.4f}")
+        print("-" * 55)
+
+    except ValueError as e:
+        print(f"\nКритична помилка: {e}. Перезапустіть програму.")
+    except Exception as e:
+        print(f"\nВиникла непередбачена помилка: {e}")
+
+if __name__ == "__main__":
+    calculate_statistical_measures()
